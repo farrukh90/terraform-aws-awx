@@ -36,7 +36,7 @@ resource "aws_instance" "awx" {
         "sudo systemctl enable docker",
         "sudo pip uninstall docker docker-py docker-compose",
         "sudo pip install docker-compose==1.9",
-        "sudo ansible-playbook -i /tmp/awx/installer/inventory /tmp/awx/installer/install.yml -vv",
+        "sudo ansible-playbook -i /tmp/awx/installer/inventory /tmp/awx/install.yml -vv",
       ]
    }
 }
