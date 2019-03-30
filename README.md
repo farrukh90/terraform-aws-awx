@@ -5,6 +5,8 @@ Prerequisites
 1. Install terraform
 2. setup IAM role or access key and secret key to access AWS
 3. Upload public key of root user to aws under ireland region with the name of "tower"
-4. Clone repo to /tmp/
-5. become root user
-6. run terraform apply
+4. rename id_rsa.pub of root user to tower.pem
+5. chmod 400 /root/.ssh/tower.pem
+6. Clone repo to /tmp/
+7. become root user
+8. run terraform apply
