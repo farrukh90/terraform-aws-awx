@@ -2,8 +2,8 @@
 ## This documentation is for Ireland region only. 
 
 Prerequisites
-Install terraform
-setup IAM role or access key and secret key to access AWS
-
-1. Clone repo 
-2. run terraform apply
+1. Install terraform
+2. setup IAM role or access key and secret key to access AWS
+3. Upload public key to aws under ireland region with the name of "tower"
+4. Clone repo 
+5. run terraform apply
