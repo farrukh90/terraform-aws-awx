@@ -13,3 +13,8 @@ Prerequisites
 
 
 # If for some reason file provision does not work, please open port 22 and 80 on security group
+
+
+
+Creating instances in different regions.1
+1. Import pub key to all regions
