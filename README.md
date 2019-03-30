@@ -10,3 +10,6 @@ Prerequisites
 6. Clone repo to /tmp/
 7. become root user
 8. run terraform apply
+
+
+# If for some reason file provision does not work, please open port 22 and 80 on security group
