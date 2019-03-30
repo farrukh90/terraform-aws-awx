@@ -9,7 +9,7 @@ resource "aws_instance" "awx" {
   associate_public_ip_address = "true"
 
   provisioner "file" {
-    source      = "/root/awx/"
+    source      = "/tmp/provision_awx_tower/awx/"
     destination = "/tmp/"
 
 
