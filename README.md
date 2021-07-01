@@ -18,3 +18,8 @@ Prerequisites
 
 Creating instances in different regions.1
 1. Import pub key to all regions
+
+
+## Credentials
+username: admin
+password:
