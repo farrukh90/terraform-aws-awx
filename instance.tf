@@ -89,6 +89,7 @@ resource "aws_instance" "awx" {
   associate_public_ip_address = "true"
   subnet_id = module.vpc.public_subnets[0]
   vpc_security_group_ids   = [aws_security_group.used-for-ansible-tower.id]
+  iam_instance_profile = aws_iam_instance_profile.ansible-tower.name
 
   provisioner "file" {
     source      = "${path.module}/awx"
