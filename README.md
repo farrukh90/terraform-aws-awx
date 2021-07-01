@@ -3,7 +3,7 @@
 
 ```
 module "awx" { 
-  source = ""farrukh90/vpc/aws" 
+  source = ""farrukh90/awx/aws" 
   region = "us-east-1"
   instance_type = "t2.large"
   key_name = "ansible"
