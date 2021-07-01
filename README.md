@@ -3,4 +3,4 @@
 
 ## Credentials
 username: admin
-password:
+password:w
