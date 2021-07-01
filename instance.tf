@@ -20,6 +20,31 @@ data "aws_ami" "centos" {
   }
 }
 
+resource "aws_security_group" "used-for-ansible-tower" {
+  name        = "used-for-ansible-tower"
+  description = "Used for ansible"
+  vpc_id      = module.vpc.vpc
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 1
+    to_port     = 65000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+
+
+
+
+
 module "vpc" {
   source  = "farrukh90/vpc/aws"
   version = "7.0.0"
@@ -63,6 +88,7 @@ resource "aws_instance" "awx" {
   key_name                    = aws_key_pair.ansible.key_name
   associate_public_ip_address = "true"
   subnet_id = module.vpc.public_subnets[0]
+  security_groups   = [aws_security_group.used-for-ansible-tower.id]
 
   provisioner "file" {
     source      = "awx"
