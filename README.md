@@ -1,5 +1,5 @@
 # Steps to install awx tower. 
-# Module location https://registry.terraform.io/modules/farrukh90/awx/aws/latest
+# [Module location](https://registry.terraform.io/modules/farrukh90/awx/aws/latest)
 
 
 ```
