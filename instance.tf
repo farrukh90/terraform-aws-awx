@@ -1,8 +1,8 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.awx_config["region"]
 }
 resource "aws_key_pair" "ansible" {
-  key_name   = "ansible"
+  key_name   = var.awx_config["key_name"]
   public_key = file("~/.ssh/id_rsa.pub")
 }
 
@@ -20,12 +20,49 @@ data "aws_ami" "centos" {
   }
 }
 
+module "vpc" {
+  source  = "farrukh90/vpc/aws"
+  version = "7.0.0"
+  region = var.awx_config["region"]
+  vpc_cidr = "10.0.0.0/16"
+  public_cidr1 = "10.0.1.0/24"
+  public_cidr2 = "10.0.2.0/24"
+  public_cidr3 = "10.0.3.0/24"
+  tags    =   {
+    Name                    =   "Ansible"
+    Environment             =   "Dev"
+    Team                    =   "DevOps"
+    Created_by              =   "Terraform"
+   }
+}
+
+output "vpc" {
+  value = module.vpc.vpc
+}
+output "public_subnet1" {
+  value = module.vpc.public_subnets[0]
+}
+
+
+output "public_subnet2" {
+  value = module.vpc.public_subnets[1]
+}
+
+output "public_subnet3" {
+  value = module.vpc.public_subnets[2]
+}
+
+output "region" {
+  value = module.vpc.region
+}
+
 
 resource "aws_instance" "awx" {
-  instance_type               = "t2.large"
+  instance_type               = var.awx_config["instance_type"]
   ami                         = data.aws_ami.centos.id
   key_name                    = aws_key_pair.ansible.key_name
   associate_public_ip_address = "true"
+  subnet_id = module.vpc.public_subnets[0]
 
   provisioner "file" {
     source      = "awx"
