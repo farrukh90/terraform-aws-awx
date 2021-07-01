@@ -91,7 +91,7 @@ resource "aws_instance" "awx" {
   vpc_security_group_ids   = [aws_security_group.used-for-ansible-tower.id]
 
   provisioner "file" {
-    source      = "awx"
+    source      = "${path.module}/awx"
     destination = "/tmp/"
 
 

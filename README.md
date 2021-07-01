@@ -3,11 +3,17 @@
 
 ```
 module "awx" { 
-  source = ""farrukh90/awx/aws" 
-  region = "us-east-1"
-  instance_type = "t2.large"
-  key_name = "ansible"
- }
+  source = "farrukh90/awx/aws" 
+  awx_config = {
+    region = "us-east-1"
+    instance_type = "t2.large"
+    key_name = "ansible"
+  }
+}
+
+output "credentials" {
+    value = module.awx.credentials
+}
 ```
 
 
