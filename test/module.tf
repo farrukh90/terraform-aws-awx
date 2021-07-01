@@ -3,7 +3,7 @@ module "awx" {
   awx_config = {
     region        = "us-east-1"
     instance_type = "t2.large"
-    key_name      = "ansible"
+    key_name      = "ansible-tower"
   }
 }
 output "credentials" {
