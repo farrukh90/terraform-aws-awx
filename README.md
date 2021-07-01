@@ -14,6 +14,7 @@ module "awx" {
 output "credentials" {
     value = module.awx.credentials
 }
+
 ```
 
 
