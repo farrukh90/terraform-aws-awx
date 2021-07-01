@@ -1,6 +1,3 @@
-provider "aws" { 
-    region = "us-east-1"   
-}    
 resource "aws_iam_role" "ansible-tower" {
 	name = "ansible-tower"
 	assume_role_policy = <<EOF
