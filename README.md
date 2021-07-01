@@ -16,8 +16,3 @@ output "credentials" {
 }
 
 ```
-
-
-## Credentials
-username: admin
-password: password
