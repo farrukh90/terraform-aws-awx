@@ -4,7 +4,7 @@
 
 ```
 module "awx" {
-  source = "../"
+  source = "farrukh90/awx/aws"
   awx_config = {
     region        = "us-east-1"
     instance_type = "m5.xlarge"
