@@ -7,7 +7,7 @@ module "awx" {
   source = "farrukh90/awx/aws" 
   awx_config = {
     region = "us-east-1"
-    instance_type = "t2.large"
+    instance_type = "m5.xlarge"
     key_name = "ansible-tower"
   }
 }
