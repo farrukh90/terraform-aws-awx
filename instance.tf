@@ -4,6 +4,7 @@ provider "aws" {
 resource "aws_key_pair" "ansible" {
   key_name   = var.awx_config["key_name"]
   public_key = file("~/.ssh/id_rsa.pub")
+  tags       = var.tags
 }
 
 
@@ -37,6 +38,7 @@ resource "aws_security_group" "used-for-ansible-tower" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = var.tags
 }
 
 
@@ -46,19 +48,14 @@ resource "aws_security_group" "used-for-ansible-tower" {
 
 
 module "vpc" {
-  source  = "farrukh90/vpc/aws"
-  version = "7.0.0"
-  region = var.awx_config["region"]
-  vpc_cidr = "10.0.0.0/16"
+  source       = "farrukh90/vpc/aws"
+  version      = "7.0.0"
+  region       = var.awx_config["region"]
+  vpc_cidr     = "10.0.0.0/16"
   public_cidr1 = "10.0.1.0/24"
   public_cidr2 = "10.0.2.0/24"
   public_cidr3 = "10.0.3.0/24"
-  tags    =   {
-    Name                    =   "Ansible"
-    Environment             =   "Dev"
-    Team                    =   "DevOps"
-    Created_by              =   "Terraform"
-   }
+  tags         = var.tags
 }
 
 output "vpc" {
@@ -87,9 +84,9 @@ resource "aws_instance" "awx" {
   ami                         = data.aws_ami.centos.id
   key_name                    = aws_key_pair.ansible.key_name
   associate_public_ip_address = "true"
-  subnet_id = module.vpc.public_subnets[0]
-  vpc_security_group_ids   = [aws_security_group.used-for-ansible-tower.id]
-  iam_instance_profile = aws_iam_instance_profile.ansible-tower.name
+  subnet_id                   = module.vpc.public_subnets[0]
+  vpc_security_group_ids      = [aws_security_group.used-for-ansible-tower.id]
+  iam_instance_profile        = "ansible-tower"
 
   provisioner "file" {
     source      = "${path.module}/awx"
@@ -122,4 +119,5 @@ resource "aws_instance" "awx" {
       "sudo ansible-playbook -i /tmp/awx/installer/inventory /tmp/awx/installer/install.yml -vv",
     ]
   }
+  tags = var.tags
 }

@@ -1,6 +1,6 @@
 resource "aws_iam_role" "ansible-tower" {
-	name = "ansible-tower"
-	assume_role_policy = <<EOF
+  name               = "ansible-tower"
+  assume_role_policy = <<EOF
 {
 "Version": "2012-10-17",
 "Statement": [
@@ -18,9 +18,9 @@ EOF
 }
 
 resource "aws_iam_policy" "ansible-tower" {
-  name = "ansible-tower"
+  name        = "ansible-tower"
   description = "ansible-tower"
-  policy = <<EOF
+  policy      = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -34,7 +34,7 @@ resource "aws_iam_policy" "ansible-tower" {
 EOF
 }
 resource "aws_iam_role_policy_attachment" "test-attach" {
-  role = aws_iam_role.ansible-tower.name
+  role       = aws_iam_role.ansible-tower.name
   policy_arn = aws_iam_policy.ansible-tower.arn
 }
 

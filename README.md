@@ -3,17 +3,20 @@
 
 
 ```
-module "awx" { 
-  source = "farrukh90/awx/aws" 
+module "awx" {
+  source = "farrukh90/awx/aws"
   awx_config = {
-    region = "us-east-1"
+    region        = "eu-west-1"
     instance_type = "m5.xlarge"
-    key_name = "ansible-tower"
+    key_name      = "ansible-tower"
+  }
+  tags = {
+      Name = "Ansible-Tower"
+      Created_by = "Terraform"
   }
 }
-
 output "credentials" {
-    value = module.awx.credentials
+  value = module.awx.credentials
 }
 
 ```

@@ -1,5 +1,5 @@
 output "credentials" {
-    value = <<EOF
+  value = <<EOF
 
             username: admin
             password: password
