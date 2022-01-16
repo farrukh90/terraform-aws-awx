@@ -2,7 +2,7 @@ provider "aws" {
   region = var.awx_config["region"]
 }
 resource "aws_key_pair" "ansible" {
-  key_name   = var.awx_config["key_name"]
+  key_name_prefix   = var.awx_config["key_name"]
   public_key = file("~/.ssh/id_rsa.pub")
   tags       = var.tags
 }
