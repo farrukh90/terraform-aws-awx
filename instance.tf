@@ -81,7 +81,7 @@ output "region" {
 
 resource "aws_instance" "awx" {
   instance_type               = var.awx_config["instance_type"]
-  ami                         = "ami-065f579dda2ccf461"
+  ami                         = "ami-0ca3e32c623d61bdf"
   key_name                    = aws_key_pair.ansible.key_name
   associate_public_ip_address = "true"
   subnet_id                   = module.vpc.public_subnets[0]
