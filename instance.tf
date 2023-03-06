@@ -32,7 +32,7 @@ resource "aws_security_group" "used-for-ansible-tower" {
 
 module "vpc" {
   source       = "farrukh90/vpc/aws"
-  version      = "7.0.0"
+  version      = "9.0.0"
   region       = var.awx_config["region"]
   vpc_cidr     = "10.0.0.0/16"
   public_cidr1 = "10.0.1.0/24"
