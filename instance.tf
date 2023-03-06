@@ -79,7 +79,7 @@ resource "aws_instance" "awx" {
       host        = self.public_ip
       type        = "ssh"
       user        = "centos"
-      private_key = file("~/.ssh/id_rsa")
+      private_key = var.private_key
     }
   }
   provisioner "remote-exec" {
@@ -87,7 +87,7 @@ resource "aws_instance" "awx" {
       host        = self.public_ip
       type        = "ssh"
       user        = "centos"
-      private_key = file("~/.ssh/id_rsa")
+      private_key = var.private_key
     }
     inline = [
       "sudo yum install -y epel-release",
