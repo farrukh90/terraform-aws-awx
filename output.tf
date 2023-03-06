@@ -8,3 +8,7 @@ output "credentials" {
 
 EOF
 }
+
+output public_ip {
+  value = aws_instance.awx.public_ip
+}
