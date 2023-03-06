@@ -9,6 +9,7 @@ module "awx" {
     Name       = "Ansible-Tower"
     Created_by = "Terraform"
   }
+  public_key = var.public_key
 }
 output "credentials" {
   value = module.awx.credentials

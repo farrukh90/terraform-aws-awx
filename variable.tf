@@ -13,3 +13,4 @@ variable "tags" {
     Created_by = "Terraform"
   }
 }
+varibable public_key {}
