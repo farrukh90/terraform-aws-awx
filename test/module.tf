@@ -11,6 +11,15 @@ module "awx" {
   }
   public_key = var.public_key
 }
-output "credentials" {
-  value = module.awx.credentials
+output "username" {
+  value = module.awx.username
+}
+output "password" {
+  value = module.awx.password
+}
+output "url" {
+  value = module.awx.url
+}
+output "public_ip" {
+  value = module.awx.public_ip
 }
