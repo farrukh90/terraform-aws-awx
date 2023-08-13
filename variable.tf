@@ -6,6 +6,7 @@ variable "awx_config" {
     key_name      = ""
     vpc_id        = ""
     subnet_id     = ""
+    private_key   = ""
   }
 }
 variable "tags" {

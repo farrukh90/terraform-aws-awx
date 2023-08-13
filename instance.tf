@@ -1,15 +1,7 @@
-resource "aws_key_pair" "ansible" {
-  key_name_prefix = var.awx_config["key_name"]
-  public_key      = file("~/.ssh/id_rsa.pub")
-  tags            = var.tags
-}
-
-
-
 resource "aws_instance" "awx" {
   instance_type               = var.awx_config["instance_type"]
   ami                         = "ami-0ca3e32c623d61bdf"
-  key_name                    = aws_key_pair.ansible.key_name
+  key_name                    = var.awx_config["key_name"]
   associate_public_ip_address = "true"
   subnet_id                   = var.awx_config["subnet_id"]
   vpc_security_group_ids      = [var.awx_config["vpc_security_group_id"]]
@@ -23,15 +15,16 @@ resource "aws_instance" "awx" {
       host        = self.public_ip
       type        = "ssh"
       user        = "centos"
-      private_key = file("~/.ssh/id_rsa")
+      private_key = var.awx_config["private_key"]
     }
   }
+
   provisioner "remote-exec" {
     connection {
       host        = self.public_ip
       type        = "ssh"
       user        = "centos"
-      private_key = file("~/.ssh/id_rsa")
+      private_key = var.awx_config["private_key"]
     }
     inline = [
       "sudo yum install -y epel-release",
