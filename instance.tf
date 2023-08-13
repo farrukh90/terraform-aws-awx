@@ -1,82 +1,9 @@
-provider "aws" {
-  region = var.awx_config["region"]
-}
 resource "aws_key_pair" "ansible" {
-  key_name_prefix   = var.awx_config["key_name"]
-  public_key = file("~/.ssh/id_rsa.pub")
-  tags       = var.tags
+  key_name_prefix = var.awx_config["key_name"]
+  public_key      = file("~/.ssh/id_rsa.pub")
+  tags            = var.tags
 }
 
-
-# data "aws_ami" "centos" {
-#   most_recent = true
-#   owners      = ["679593333241"]
-#   filter {
-#     name   = "state"
-#     values = ["available"]
-#   }
-#   filter {
-#     name   = "name"
-#     values = ["CentOS Linux 7 x86_64 HVM EBS *"]
-#   }
-# }
-
-resource "aws_security_group" "used-for-ansible-tower" {
-  name        = "used-for-ansible-tower"
-  description = "Used for ansible"
-  vpc_id      = module.vpc.vpc
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 1
-    to_port     = 65000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags = var.tags
-}
-
-
-
-
-
-
-
-module "vpc" {
-  source       = "farrukh90/vpc/aws"
-  version      = "7.0.0"
-  region       = var.awx_config["region"]
-  vpc_cidr     = "10.0.0.0/16"
-  public_cidr1 = "10.0.1.0/24"
-  public_cidr2 = "10.0.2.0/24"
-  public_cidr3 = "10.0.3.0/24"
-  tags         = var.tags
-}
-
-output "vpc" {
-  value = module.vpc.vpc
-}
-output "public_subnet1" {
-  value = module.vpc.public_subnets[0]
-}
-
-
-output "public_subnet2" {
-  value = module.vpc.public_subnets[1]
-}
-
-output "public_subnet3" {
-  value = module.vpc.public_subnets[2]
-}
-
-output "region" {
-  value = module.vpc.region
-}
 
 
 resource "aws_instance" "awx" {
@@ -84,8 +11,8 @@ resource "aws_instance" "awx" {
   ami                         = "ami-0ca3e32c623d61bdf"
   key_name                    = aws_key_pair.ansible.key_name
   associate_public_ip_address = "true"
-  subnet_id                   = module.vpc.public_subnets[0]
-  vpc_security_group_ids      = [aws_security_group.used-for-ansible-tower.id]
+  subnet_id                   = var.awx_config["subnet_id"]
+  vpc_security_group_ids      = [var.awx_config["vpc_security_group_id"]]
 
   provisioner "file" {
     source      = "${path.module}/awx"

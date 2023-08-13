@@ -1,9 +1,11 @@
 variable "awx_config" {
   type = map(any)
   default = {
-    region        = "us-east-1"
-    instance_type = "m5.xlarge"
-    key_name      = "ansible"
+    region        = ""
+    instance_type = ""
+    key_name      = ""
+    vpc_id        = ""
+    subnet_id     = ""
   }
 }
 variable "tags" {
