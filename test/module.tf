@@ -1,5 +1,6 @@
 module "awx" {
-  source  = "../"
+  source  = "farrukh90/awx/aws"
+  version = "13.0.9"
   awx_config = {
     instance_type         = "m5.xlarge"
     key_name              = "used-for-ansible-tower"

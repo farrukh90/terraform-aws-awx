@@ -7,3 +7,6 @@ output "credentials" {
 
 EOF
 }
+output public_ip {
+  value = aws_instance.aws.public_ip
+}
