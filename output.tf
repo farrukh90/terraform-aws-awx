@@ -14,3 +14,11 @@ output public_ip {
 output private_ip {
   value = aws_instance.awx.private_ip
 }
+
+output username { 
+  value = "admin"
+}
+
+output password { 
+  value = "password"
+}
